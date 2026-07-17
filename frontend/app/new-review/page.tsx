@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import axios from 'axios'
@@ -103,7 +103,11 @@ export default function NewReviewPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const token = localStorage.getItem('cr_token')
+  const [token, setToken] = useState<string | null>(null)
+
+  useEffect(() => {
+    setToken(localStorage.getItem('cr_token'))
+  }, [])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0]
